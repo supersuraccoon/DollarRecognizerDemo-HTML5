@@ -26,7 +26,7 @@ var DemoLayer = cc.Layer.extend({
 		this._resultLabel = cc.LabelTTF.create("", "Arial", 16);
 		this._resultLabel.setPosition(cc.p(this._winSize.width / 2, this._winSize.height * 11 / 13));
 		this.addChild(this._resultLabel);
-		this._resultLabel.setString("Gestures loaded, on click to draw, on more click to release");
+		this._resultLabel.setString("Gestures loaded, on click to draw, on more click to release (Gestures loaded: V, Z, W, Square)");
 		
 		// enable mouse
 		if( 'mouse' in sys.capabilities ) {
@@ -37,6 +37,8 @@ var DemoLayer = cc.Layer.extend({
 		// preload gestures
 		this._r.AddGesture("z", jsonDictFromFile("gesture/z.json")[0]);
 		this._r.AddGesture("V", jsonDictFromFile("gesture/V.json")[0]);
+		this._r.AddGesture("square", jsonDictFromFile("gesture/square.json")[0]);
+		this._r.AddGesture("W", jsonDictFromFile("gesture/W.json")[0]);
 
         return true;
     },
@@ -45,7 +47,6 @@ var DemoLayer = cc.Layer.extend({
 		if (this._mouseDown) {
 			// draw over
 			this._mouseDown = false
-			this.removeChildByTag(99, true);
 			var result = this._r.Recognize(this._points, false);
 			this.showResult(result);
 			this._points.length = 0;
@@ -54,7 +55,8 @@ var DemoLayer = cc.Layer.extend({
 			// start draw
 			this._mouseDown = true;
 			var loc = event.getLocation();
-			var streak = cc.MotionStreak.create(2, 2, 4, cc.GREEN, s_streak);
+			this.removeChildByTag(99, true);
+			var streak = cc.MotionStreak.create(99, 2, 4, cc.GREEN, s_streak);
 			this.addChild(streak, 99, 99);
 			streak.setPosition(loc);
 			this._points.push(new Point(loc.x, this._winSize.height - loc.y));
