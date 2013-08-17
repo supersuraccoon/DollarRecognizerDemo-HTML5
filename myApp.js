@@ -26,7 +26,7 @@ var DemoLayer = cc.Layer.extend({
 		this._resultLabel = cc.LabelTTF.create("", "Arial", 16);
 		this._resultLabel.setPosition(cc.p(this._winSize.width / 2, this._winSize.height * 11 / 13));
 		this.addChild(this._resultLabel);
-		this._resultLabel.setString("Gestures loaded, on click to draw, on more click to release (Gestures loaded: V, Z, W, Square)");
+		this._resultLabel.setString("Gestures loaded, one click to draw, one more click to release (Gestures loaded: V, Z, W, Square)");
 		
 		// enable mouse
 		if( 'mouse' in sys.capabilities ) {
@@ -75,7 +75,7 @@ var DemoLayer = cc.Layer.extend({
 		cc.log(result);
 		if (result.Score < this._thresholdScore)
 			result.Name = "score too low"
-		this._resultLabel.setString("Last gesture: " + result.Name + ", on click to draw, on more click to release");
+		this._resultLabel.setString("Last gesture: " + result.Name + ", one click to draw, one more click to release");
 	}
 });
 
